@@ -36,7 +36,7 @@ void rohmbus(int n, int i, int j){
 
 int main(){
     cout<<"Rhombus:\n "<<endl;
-    int n = 7;
+    int n = 13;
     rohmbus(n, n, n);
     cout<<"\n";
     return 0;

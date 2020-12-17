@@ -58,7 +58,7 @@ void arrow(int n){
 
 int main(){
     cout<<"Arrow:\n "<<endl;
-    arrow(6);
+    arrow(15);
     cout<<"\n";
     return 0;
 }
