@@ -70,7 +70,7 @@ void cross(int n){
 
 int main(){
     cout<<"Cross:\n "<<endl;
-    cross(50);
+    cross(7);
     cout<<"\n";
     return 0;
 }
