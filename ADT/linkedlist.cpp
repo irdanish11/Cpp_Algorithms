@@ -85,16 +85,17 @@ void LinkedList::traverseList(){
             cout<<", ";
         tmp = tmp->next;
     }
-    cout<<"]\n";
-    delete tmp;
+    cout<<"]\n"<<endl;
 }
 
 void LinkedList::deleteNode(int idx){
     Node* tmp = NULL;
     Node* tmp1 = NULL;
     tmp1 = head->next;
+    int count = 0;
     for(int i=0; i<idx-1; i++){
         tmp1 = tmp1->next;
+        count++;
     }
     //this tmp node is the node that we will delete
     tmp = tmp1->next;
@@ -103,7 +104,8 @@ void LinkedList::deleteNode(int idx){
     //making the node that was behind the node that we are going to delete as current node.
     current = tmp1;
     delete tmp;
-    delete tmp1;
+    size--;
+    pos=count;
 }
 
 int main(){
@@ -119,7 +121,9 @@ int main(){
     list->traverseList();
     //delete a node
     list->deleteNode(2);
+    cout<<"\nSize: "<<list->size<<"\tCurrent Position: "<<list->pos<<endl;
     //traversing the list: i.e. print the contents of the list.
     list->traverseList();
+    
     return 0;
 }
