@@ -1,68 +1,54 @@
-/*
-    @author: Danish
-    Generalized Singly Linked List Implementation using head & tail pointers, you can it on any Datatype.
-*/
-
 #include <iostream>
 #include <assert.h>
 using namespace std;
 
-template <typename T1>
 class Node{
     public:
-        T1 data;
+        int data;
         Node* next;
 };
 
-template <typename T>
-class LinkedList{
+class LinkedListInt{
     public:
-        //T *ptr;
         //holds the number of nodes in the linked list
         int size;
         //current node position of the current pointer.
         int pos;
-        Node<T>* current = NULL;
-        Node<T>* head = NULL;
-        Node<T>* tail = NULL;
-        LinkedList(T val);
-        void append(T val);
-        void insert(int idx, T val);
+        Node* current = NULL;
+        Node* head = NULL;
+        Node* tail = NULL;
+        void append(int val);
+        void insert(int idx, int val);
         void printList();
         void deleteNode(int idx);
-        T traverseList(int idx, bool verbose);
-
-
+        int traverseList(int idx, bool verbose);
+    
+    //adding single node linked list with tail and head
+    LinkedListInt(int val){
+        head = new Node;
+        current = new Node;
+        current->data = val;
+        tail = new Node;
+        head->next = current;
+        current->next = tail;
+        //one node is added to the linked list.
+        size = 1;
+        pos = 0;
+    }
 
     private:
-        Node<T>* create_node(T val);
+        Node* create_node(int val);
 };
 
-//Constructor: adding single node linked list with tail and head
-template <typename T>
-LinkedList<T>::LinkedList(T val){
-    head = new Node<T>;
-    current = new Node<T>;
-    current->data = val;
-    tail = new Node<T>;
-    head->next = current;
-    current->next = tail;
-    //one node is added to the linked list.
-    size = 1;
-    pos = 0;
-}
-
-template <typename T>
-Node<T>* LinkedList<T>::create_node(T val){
-    Node<T>* node1 = NULL;
-    node1 = new Node<T>;
+Node* LinkedListInt::create_node(int val){
+    Node* node1 = NULL;
+    node1 = new Node;
     node1->data=val;
     return node1;
 }
 
-template <typename T>
-void LinkedList<T>::append(T val){
-    Node<T>* node2 = create_node(val);
+void LinkedListInt::append(int val){
+    Node* node2 = create_node(val);
     node2->next = tail;
     current->next = node2;
     current = node2;
@@ -70,8 +56,7 @@ void LinkedList<T>::append(T val){
     pos = size;
 }
 
-template <typename T>
-void LinkedList<T>::insert(int idx, T val){
+void LinkedListInt::insert(int idx, int val){
     //Segmentation fault (core dumped): Trying to access memory that does not belong to the program, i.e. insertion index out of bound!
     assert(idx<=size+1);
     //making the head as current pointer.
@@ -80,7 +65,7 @@ void LinkedList<T>::insert(int idx, T val){
         current = current->next;
     }
     //create the node
-    Node<T>* node3 = create_node(val);
+    Node* node3 = create_node(val);
     //pointing the next pointer to the location where current node's next pointer was pointing
     node3->next = current->next;
     //joining the old current node with newly created node
@@ -91,9 +76,8 @@ void LinkedList<T>::insert(int idx, T val){
     pos=idx;
 }
 
-template <typename T>
-void LinkedList<T>::printList(){
-    Node<T>* tmp = NULL;
+void LinkedListInt::printList(){
+    Node* tmp = NULL;
     tmp = head->next;
     cout<<"\n[";
     for(int i=0; i<size; i++){
@@ -105,10 +89,9 @@ void LinkedList<T>::printList(){
     cout<<"]\n"<<endl;
 }
 
-template <typename T>
-void LinkedList<T>::deleteNode(int idx){
-    Node<T>* tmp = NULL;
-    Node<T>* tmp1 = NULL;
+void LinkedListInt::deleteNode(int idx){
+    Node* tmp = NULL;
+    Node* tmp1 = NULL;
     tmp1 = head->next;
     int count = 0;
     for(int i=0; i<idx-1; i++){
@@ -126,8 +109,7 @@ void LinkedList<T>::deleteNode(int idx){
     pos=count;
 }
 
-template <typename T>
-T LinkedList<T>::traverseList(int idx, bool verbose){
+int LinkedListInt::traverseList(int idx, bool verbose){
     current = head->next;
     for(int i=0; i<idx; i++){
         current = current->next;
@@ -138,18 +120,14 @@ T LinkedList<T>::traverseList(int idx, bool verbose){
 }
 
 int main(){
-    //Substiute any data type in place of <string> on line 137-138, e.g to <int>, <bool> etc.
-    LinkedList<string>* list; 
-    list = new LinkedList<string>("hello");
-
-    //Also chnage the datat according to teh above mentioned datatype.
+    LinkedListInt* list; 
+    list = new LinkedListInt(18);
     //appending to list
-    list->append("world");
-    list->append("C++");
-    cout<<list->current->data<<endl;
+    list->append(5);
+    list->append(56);
     //inserting to list
-    list->insert(3, "Python");
-    list->insert(2, "C");
+    list->insert(3, 125);
+    list->insert(2, 289);
     //print the contents of the list.
     list->printList();
     //delete a node
@@ -158,6 +136,6 @@ int main(){
     //print the contents of the list.
     list->printList();
     //reterive an element from the list by index
-    string ret = list->traverseList(3, true);
+    int ret = list->traverseList(3, true);
     return 0;
 }
