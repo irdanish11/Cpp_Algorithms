@@ -19,8 +19,9 @@ class LinkedList{
         Node* tail = NULL;
         void append(int val);
         void insert(int idx, int val);
-        void traverseList();
+        void printList();
         void deleteNode(int idx);
+        int traverseList(int idx, bool verbose);
     
     //adding single node linked list with tail and head
     LinkedList(int val){
@@ -75,7 +76,7 @@ void LinkedList::insert(int idx, int val){
     pos=idx;
 }
 
-void LinkedList::traverseList(){
+void LinkedList::printList(){
     Node* tmp = NULL;
     tmp = head->next;
     cout<<"\n[";
@@ -108,6 +109,16 @@ void LinkedList::deleteNode(int idx){
     pos=count;
 }
 
+int LinkedList::traverseList(int idx, bool verbose){
+    current = head->next;
+    for(int i=0; i<idx; i++){
+        current = current->next;
+    }
+    if(verbose)
+        cout<<"The value at index "<<idx<<" is: "<<current->data<<endl;
+    return current->data;
+}
+
 int main(){
     LinkedList* list; 
     list = new LinkedList(18);
@@ -117,13 +128,14 @@ int main(){
     //inserting to list
     list->insert(3, 125);
     list->insert(2, 289);
-    //traversing the list: i.e. print the contents of the list.
-    list->traverseList();
+    //print the contents of the list.
+    list->printList();
     //delete a node
     list->deleteNode(2);
     cout<<"\nSize: "<<list->size<<"\tCurrent Position: "<<list->pos<<endl;
-    //traversing the list: i.e. print the contents of the list.
-    list->traverseList();
-    
+    //print the contents of the list.
+    list->printList();
+    //reterive an element from the list by index
+    int ret = list->traverseList(3, true);
     return 0;
 }
